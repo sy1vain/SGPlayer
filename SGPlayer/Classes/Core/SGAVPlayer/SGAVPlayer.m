@@ -36,6 +36,7 @@ static NSString * const AVMediaSelectionOptionTrackIDKey = @"MediaSelectionOptio
 
 @property (nonatomic, assign) SGPlayerState stateBeforBuffering;
 
+- (void)playWithRate:(float)rate;
 
 #pragma mark - track info
 
@@ -62,6 +63,7 @@ static NSString * const AVMediaSelectionOptionTrackIDKey = @"MediaSelectionOptio
     if (self = [super init]) {
         self.abstractPlayer = abstractPlayer;
         self.abstractPlayer.displayView.playerOutputAV = self;
+        self.rate = 1;
     }
     return self;
 }
@@ -98,17 +100,23 @@ static NSString * const AVMediaSelectionOptionTrackIDKey = @"MediaSelectionOptio
             break;
     }
     
-    [self.avPlayer play];
+    [self playWithRate:_rate];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         switch (self.state) {
             case SGPlayerStateBuffering:
-            case SGPlayerStatePlaying:
+//            case SGPlayerStatePlaying:
             case SGPlayerStateReadyToPlay:
-                [self.avPlayer play];
+                [self playWithRate:_rate];
             default:
                 break;
         }
     });
+}
+
+- (void)playWithRate:(float)rate
+{
+    [self.avPlayer play];
+    self.avPlayer.rate = rate;
 }
 
 - (void)startBuffering
@@ -131,7 +139,7 @@ static NSString * const AVMediaSelectionOptionTrackIDKey = @"MediaSelectionOptio
 - (void)resumeStateAfterBuffering
 {
     if (self.playing) {
-        [self.avPlayer play];
+        [self playWithRate:_rate];
         self.state = SGPlayerStatePlaying;
     } else if (self.state == SGPlayerStateBuffering) {
         self.state = self.stateBeforBuffering;
@@ -141,7 +149,7 @@ static NSString * const AVMediaSelectionOptionTrackIDKey = @"MediaSelectionOptio
 - (BOOL)playIfNeed
 {
     if (self.playing) {
-        [self.avPlayer play];
+        [self playWithRate:_rate];
         self.state = SGPlayerStatePlaying;
         return YES;
     }
@@ -293,6 +301,12 @@ static NSString * const AVMediaSelectionOptionTrackIDKey = @"MediaSelectionOptio
         double percent = [self percentForTime:_playableTime duration:duration];
         [SGPlayerNotification postPlayer:self.abstractPlayer playablePercent:@(percent) current:@(playableTime) total:@(duration)];
     }
+}
+
+- (void)setRate:(float)rate
+{
+    _rate = rate;
+    self.avPlayer.rate = rate;
 }
 
 - (CGSize)presentationSize

@@ -100,6 +100,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)seekToTime:(NSTimeInterval)time;
 - (void)seekToTime:(NSTimeInterval)time completeHandler:(nullable void(^)(BOOL finished))completeHandler;
 
+@property (nonatomic, assign) CGFloat rate;
+
 @end
 
 

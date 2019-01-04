@@ -34,6 +34,7 @@
 @property (nonatomic, assign, readonly) NSTimeInterval duration;
 @property (nonatomic, assign, readonly) NSTimeInterval playableTime;
 @property (nonatomic, assign, readonly) BOOL seeking;
+@property (nonatomic, assign) float rate;
 
 - (void)replaceVideo;
 - (void)reloadVolume;

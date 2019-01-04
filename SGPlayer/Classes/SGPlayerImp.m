@@ -218,6 +218,35 @@
     }
 }
 
+
+- (CGFloat)rate
+{
+    switch (self.decoderType)
+    {
+        case SGDecoderTypeAVPlayer:
+            return self.avPlayer.rate;
+        case SGDecoderTypeFFmpeg:
+            return 1;
+        case SGDecoderTypeError:
+            break;
+    }
+    return 0;
+}
+
+- (void)setRate:(CGFloat)rate
+{
+    switch (self.decoderType)
+    {
+        case SGDecoderTypeAVPlayer:
+            self.avPlayer.rate = rate;
+            break;
+        case SGDecoderTypeFFmpeg:
+            break;
+        case SGDecoderTypeError:
+            break;
+    }
+}
+
 - (void)setVolume:(CGFloat)volume
 {
     _volume = volume;
