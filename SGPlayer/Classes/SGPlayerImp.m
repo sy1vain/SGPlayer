@@ -219,7 +219,7 @@
 }
 
 
-- (CGFloat)rate
+- (float)rate
 {
     switch (self.decoderType)
     {
@@ -233,7 +233,7 @@
     return 0;
 }
 
-- (void)setRate:(CGFloat)rate
+- (void)setRate:(float)rate
 {
     switch (self.decoderType)
     {
