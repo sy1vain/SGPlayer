@@ -21,6 +21,16 @@
 
 @implementation SGSensors
 
++ (SGSensors *)sharedInstance
+{
+    static SGSensors *sharedSGSensorsInstance = nil;
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
+        sharedSGSensorsInstance = [[self alloc] init];
+    });
+    return sharedSGSensorsInstance;
+}
+
 - (instancetype)init
 {
     if (self = [super init]) {
@@ -46,8 +56,14 @@
             }
                 break;
         }
+        [self start];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [self stop];
 }
 
 - (void)updateDeviceOrientation:(UIInterfaceOrientation)orientation
@@ -98,7 +114,11 @@
 {
     if (!self.isReady && !self.manager.isDeviceMotionActive) {
         self.manager.deviceMotionUpdateInterval = 0.01;
-        [self.manager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXArbitraryZVertical];
+        if (self.manager.isMagnetometerAvailable) {
+            [self.manager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXMagneticNorthZVertical];
+        } else {
+            [self.manager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXArbitraryZVertical];
+        }
     }
 }
 
