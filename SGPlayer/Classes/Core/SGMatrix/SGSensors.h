@@ -12,6 +12,7 @@
 
 @property (nonatomic, assign, readonly, getter=isReady) BOOL ready;
 
++ (SGSensors*)sharedInstance;
 - (void)start;
 - (void)stop;
 

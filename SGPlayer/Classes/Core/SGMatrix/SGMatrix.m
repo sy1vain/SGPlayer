@@ -36,8 +36,7 @@
 - (void)setupSensors
 {
 #if SGPLATFORM_TARGET_OS_IPHONE
-    self.sensors = [[SGSensors alloc] init];
-    [self.sensors start];
+    self.sensors = [SGSensors sharedInstance];//[[SGSensors alloc] init];
 #endif
 }
 
@@ -97,9 +96,6 @@
 
 - (void)dealloc
 {
-#if SGPLATFORM_TARGET_OS_IPHONE
-    [self.sensors stop];
-#endif
     SGPlayerLog(@"%@ release", self.class);
 }
 
