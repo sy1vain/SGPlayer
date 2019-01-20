@@ -114,7 +114,11 @@
 {
     if (!self.isReady && !self.manager.isDeviceMotionActive) {
         self.manager.deviceMotionUpdateInterval = 0.01;
-        [self.manager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXArbitraryZVertical];
+        if (self.manager.isMagnetometerAvailable) {
+            [self.manager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXMagneticNorthZVertical];
+        } else {
+            [self.manager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXArbitraryZVertical];
+        }
     }
 }
 
