@@ -171,6 +171,11 @@
     [self replaceVideoWithURL:nil];
 }
 
+- (void)setBaseHeading:(CGFloat)heading
+{
+    [self.displayView setBaseHeading:heading];
+}
+
 - (BOOL)seekEnable
 {
     switch (self.decoderType)

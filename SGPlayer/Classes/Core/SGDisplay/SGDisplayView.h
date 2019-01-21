@@ -52,6 +52,9 @@ typedef NS_ENUM(NSUInteger, SGDisplayPlayerOutputType) {
 - (void)playerOutputTypeFF;
 #endif
 
+// heading, ugly fix
+- (void)setBaseHeading:(CGFloat)heading;
+
 
 // renderer type
 @property (nonatomic, assign, readonly) SGDisplayRendererType rendererType;

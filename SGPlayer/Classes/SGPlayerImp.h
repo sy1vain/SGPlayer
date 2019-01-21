@@ -95,6 +95,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)pause;
 - (void)stop;
 
+- (void)setBaseHeading:(CGFloat)heading;
+
 @property (nonatomic, assign, readonly) BOOL seekEnable;
 @property (nonatomic, assign, readonly) BOOL seeking;
 - (void)seekToTime:(NSTimeInterval)time;

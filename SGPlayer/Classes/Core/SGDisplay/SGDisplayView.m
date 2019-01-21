@@ -55,6 +55,11 @@
     self->_playerOutputType = SGDisplayPlayerOutputTypeAV;
 }
 
+- (void)setBaseHeading:(CGFloat)heading;
+{
+    self.fingerRotation.y = heading;
+}
+
 - (void)rendererTypeEmpty
 {
     if (self.rendererType != SGDisplayRendererTypeEmpty) {
