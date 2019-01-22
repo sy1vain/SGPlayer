@@ -487,7 +487,7 @@
 		9C478F601E713ABB00AD4289 /* SGMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C478F561E713ABB00AD4289 /* SGMatrix.m */; };
 		9C478F611E713ABB00AD4289 /* SGMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C478F561E713ABB00AD4289 /* SGMatrix.m */; };
 		9C478F621E713ABB00AD4289 /* SGMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C478F561E713ABB00AD4289 /* SGMatrix.m */; };
-		9C478F651E713AC600AD4289 /* SGSensors.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C478F631E713AC600AD4289 /* SGSensors.h */; };
+		9C478F651E713AC600AD4289 /* SGSensors.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C478F631E713AC600AD4289 /* SGSensors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9C478F661E713AC600AD4289 /* SGSensors.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C478F641E713AC600AD4289 /* SGSensors.m */; };
 		9C4792DD1E713B4900AD4289 /* SGAVPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C4792BB1E713B4900AD4289 /* SGAVPlayer.h */; };
 		9C4792DE1E713B4900AD4289 /* SGAVPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C4792BB1E713B4900AD4289 /* SGAVPlayer.h */; };
@@ -1375,6 +1375,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C478F651E713AC600AD4289 /* SGSensors.h in Headers */,
 				9C2535111FAB151500BBFA5C /* frame.h in Headers */,
 				9C2534DE1FAB151500BBFA5C /* bswap.h in Headers */,
 				9C478F111E713A3200AD4289 /* SGPlayerTrack.h in Headers */,
@@ -1397,7 +1398,6 @@
 				9C5AB68E1E88B2AD0021F460 /* SGGLViewController.h in Headers */,
 				9C2534F01FAB151500BBFA5C /* cpu.h in Headers */,
 				9C2535621FAB151500BBFA5C /* random_seed.h in Headers */,
-				9C478F651E713AC600AD4289 /* SGSensors.h in Headers */,
 				9C2535681FAB151500BBFA5C /* rc4.h in Headers */,
 				9C25350B1FAB151500BBFA5C /* fifo.h in Headers */,
 				9C2535F81FAB151500BBFA5C /* SGFFDecoder.h in Headers */,
