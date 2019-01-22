@@ -111,15 +111,18 @@
 
 - (void)start
 {
-    [self startWithTrueNorth: false];
+    [self start: false];
 }
 
-- (void)startWithTrueNorth:(Boolean)enabled;
+- (void)start:(Boolean)trueNorthEnabled;
 {
     if (!self.isReady && !self.manager.isDeviceMotionActive) {
         self.manager.deviceMotionUpdateInterval = 0.01;
-        if (self.manager.isMagnetometerAvailable) {
-            [self.manager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXMagneticNorthZVertical];
+        if (self.manager.isMagnetometerAvailable && trueNorthEnabled) {
+            [self.manager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXTrueNorthZVertical];
+        } else if (trueNorthEnabled) {
+            NSLog(@"This device cannot use Magnetometer, arbitrary Z");
+            [self.manager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXArbitraryZVertical];
         } else {
             [self.manager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXArbitraryZVertical];
         }
