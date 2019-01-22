@@ -14,6 +14,7 @@
 
 + (SGSensors*)sharedInstance;
 - (void)start;
+- (void)startWithTrueNorth:(Boolean)enabled;
 - (void)stop;
 
 - (GLKMatrix4)modelView;

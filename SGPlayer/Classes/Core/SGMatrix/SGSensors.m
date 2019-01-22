@@ -56,7 +56,6 @@
             }
                 break;
         }
-        [self start];
     }
     return self;
 }
@@ -111,6 +110,11 @@
 }
 
 - (void)start
+{
+    [self startWithTrueNorth: false];
+}
+
+- (void)startWithTrueNorth:(Boolean)enabled;
 {
     if (!self.isReady && !self.manager.isDeviceMotionActive) {
         self.manager.deviceMotionUpdateInterval = 0.01;
