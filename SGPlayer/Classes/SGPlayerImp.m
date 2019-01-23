@@ -223,6 +223,26 @@
     }
 }
 
+- (void)seekToTime:(NSTimeInterval)time toleranceBefore:(NSTimeInterval)toleranceBefore toleranceAfter:(NSTimeInterval)toleranceAfter
+{
+    [self seekToTime:time toleranceBefore:toleranceBefore toleranceAfter:toleranceAfter completeHandler:nil];
+}
+
+- (void)seekToTime:(NSTimeInterval)time toleranceBefore:(NSTimeInterval)toleranceBefore toleranceAfter:(NSTimeInterval)toleranceAfter completeHandler:(nullable void(^)(BOOL finished))completeHandler
+{
+    switch (self.decoderType)
+    {
+        case SGDecoderTypeAVPlayer:
+            [self.avPlayer seekToTime:time toleranceBefore:(NSTimeInterval)toleranceBefore toleranceAfter:(NSTimeInterval)toleranceAfter completeHandler:completeHandler];
+            break;
+        case SGDecoderTypeFFmpeg:
+            //not implemented for FFMpeg
+            [self seekToTime:time completeHandler:completeHandler];
+            break;
+        case SGDecoderTypeError:
+            break;
+    }
+}
 
 - (float)rate
 {

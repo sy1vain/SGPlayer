@@ -37,6 +37,7 @@ static NSString * const AVMediaSelectionOptionTrackIDKey = @"MediaSelectionOptio
 @property (nonatomic, assign) SGPlayerState stateBeforBuffering;
 
 - (void)playWithRate:(float)rate;
+- (void)seekToCmTime:(CMTime)time toleranceBefore:(CMTime)toleranceBefore toleranceAfter:(CMTime)toleranceAfter completeHandler:(void(^)(BOOL finished))completeHandler;
 
 #pragma mark - track info
 
@@ -179,6 +180,21 @@ static NSString * const AVMediaSelectionOptionTrackIDKey = @"MediaSelectionOptio
 
 - (void)seekToTime:(NSTimeInterval)time completeHandler:(void (^)(BOOL))completeHandler
 {
+    [self seekToCmTime:CMTimeMakeWithSeconds(time, NSEC_PER_SEC) toleranceBefore:kCMTimePositiveInfinity toleranceAfter:kCMTimePositiveInfinity completeHandler:completeHandler];
+}
+
+- (void)seekToTime:(NSTimeInterval)time toleranceBefore:(NSTimeInterval)toleranceBefore toleranceAfter:(NSTimeInterval)toleranceAfter
+{
+    [self seekToCmTime:CMTimeMakeWithSeconds(time, NSEC_PER_SEC) toleranceBefore:CMTimeMakeWithSeconds(toleranceBefore, NSEC_PER_SEC) toleranceAfter:CMTimeMakeWithSeconds(toleranceAfter, NSEC_PER_SEC) completeHandler:nil];
+}
+
+- (void)seekToTime:(NSTimeInterval)time toleranceBefore:(NSTimeInterval)toleranceBefore toleranceAfter:(NSTimeInterval)toleranceAfter completeHandler:(void(^)(BOOL finished))completeHandler
+{
+    [self seekToCmTime:CMTimeMakeWithSeconds(time, NSEC_PER_SEC) toleranceBefore:CMTimeMakeWithSeconds(toleranceBefore, NSEC_PER_SEC) toleranceAfter:CMTimeMakeWithSeconds(toleranceAfter, NSEC_PER_SEC) completeHandler:completeHandler];
+}
+
+- (void)seekToCmTime:(CMTime)time toleranceBefore:(CMTime)toleranceBefore toleranceAfter:(CMTime)toleranceAfter completeHandler:(void(^)(BOOL finished))completeHandler
+{
     if (!self.seekEnable || self.avPlayerItem.status != AVPlayerItemStatusReadyToPlay) {
         if (completeHandler) {
             completeHandler(NO);
@@ -190,7 +206,7 @@ static NSString * const AVMediaSelectionOptionTrackIDKey = @"MediaSelectionOptio
         self.seeking = YES;
         [self startBuffering];
         SGWeakSelf
-        [self.avPlayerItem seekToTime:CMTimeMakeWithSeconds(time, NSEC_PER_SEC) completionHandler:^(BOOL finished) {
+        [self.avPlayerItem seekToTime:time toleranceBefore:toleranceBefore toleranceAfter:toleranceAfter completionHandler:^(BOOL finished) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 SGStrongSelf
                 self.seeking = NO;
